@@ -1801,6 +1801,7 @@ a new header into the stack at the indicated location. Any existing valid
 instances from the given index or higher are copied to the next higher index.
 The given instance is set to valid. If the array is fully populated when this
 operation is executed, then no change is made to the Parsed Representation.
+It is an error to reference a metadata instance from this action.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1819,6 +1820,7 @@ header instance. If the source header instance was invalid, the destination
 header instance becomes invalid; otherwise the destination will be valid
 after the operation. The source and destination instances must be of the
 same type.
+It is an error to reference a metadata instance from this action.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1839,6 +1841,7 @@ All field values in the header instance become uninitialized.
 If the \texttt{header_instance} is an element in a header stack, the effect is to
 pop the indicated element from the stack. Any valid instances in the stack
 at higher indices are copied to the next lower index.
+It is an error to reference a metadata instance from this action.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2238,7 +2241,6 @@ of meter is updated and the meter returns information (a "color") which is
 stored in \texttt{field}. If the parent header of \texttt{field} is not valid, the meter
 state is updated, but the state of the meter is discarded.
 It is an error to reference a direct-mapped meter array from this action.
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3328,16 +3330,16 @@ Control flow begins with the control function \texttt{ingress}.
 \begin{itemize}
 \item LPM match (Section \ref{sec:tabledecs})
 \begin{itemize}
-\item Add a constraint to allow only one \texttt{lpm} match type per table.
+\item Add a constraint to allow at most one \texttt{lpm} match type per table.
 \end{itemize}
 \item Initial value of stateful memories (Section \ref{sec:stateful})
 \begin{itemize}
 \item Change semantics so that counters are initialized to 0; meters are initialized to green color; and registers are initialized with an undefiend value.
 \end{itemize}
-\item Primitive action on direct meters (Section \ref{sec:primitiveactions})
+\item Primitive actions (Section \ref{sec:primitiveactions})
 \begin{itemize}
-\item Remove the sentence that defined semantics for applying \texttt{execute_meter} primitive action on direct meters
-and state it is not allowed.
+\item Disallow \texttt{execute_meter} to reference direct meters.
+\item Disallow \texttt{add_header}, \texttt{copy_header}, and \texttt{remove_header} to reference metadata instances.
 \end{itemize}
 \end{itemize}
 
