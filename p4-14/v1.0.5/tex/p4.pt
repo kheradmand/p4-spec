@@ -2232,12 +2232,12 @@ Execute a meter operation.
 \paramdoc{field}{(FLD) A field reference to store the meter state.}
 }
 { % Description
-The given meter, determined by \texttt{meter_ref} and \texttt{index}, is executed. If the
-meter is direct, then \texttt{index} is ignored as the table entry determines which
-cell to reference. The length of the packet is passed to the meter. The state
+The given meter, determined by \texttt{meter_ref} and \texttt{index}, is executed.
+The length of the packet is passed to the meter. The state
 of meter is updated and the meter returns information (a "color") which is
 stored in \texttt{field}. If the parent header of \texttt{field} is not valid, the meter
 state is updated, but the state of the meter is discarded.
+It is an error to reference a direct-mapped meter array from this action.
 
 }
 
@@ -3333,6 +3333,11 @@ Control flow begins with the control function \texttt{ingress}.
 \item Initial value of stateful memories (Section \ref{sec:stateful})
 \begin{itemize}
 \item Change semantics so that counters are initialized to 0; meters are initialized to green color; and registers are initialized with an undefiend value.
+\end{itemize}
+\item Primitive action on direct meters (Section \ref{sec:primitiveactions})
+\begin{itemize}
+\item Remove the sentence that defined semantics for applying \texttt{execute_meter} primitive action on direct meters
+and state it is not allowed.
 \end{itemize}
 \end{itemize}
 
