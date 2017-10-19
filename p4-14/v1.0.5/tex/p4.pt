@@ -1432,6 +1432,7 @@ A \texttt{packets_and_bytes} type counter is comprised of two sub-counters
 internally, and each sub-counter is incremented by the packet length and
 by one respectively.
 
+Counters are initialized to 0.
 
 \SUBSECTION{Meters}{meters}
 
@@ -1489,6 +1490,8 @@ The \texttt{instance_count} attribute indicates the number of
 instances (cells) of the meter to allocate.  The
 \texttt{instance_count} attribute is \textbf{required} if the meter
 is not declared with the \texttt{direct} attribute.
+
+Meters are initialized to color green.
 
 \SUBSECTION{Registers}{registers}
 
@@ -1554,6 +1557,8 @@ register is not declared with the \texttt{direct} attribute.
 A register can be accessed by \texttt{register_read} and
 \texttt{register_write} primitives, which will be detailed in the
 next section.
+
+Registers are initialized with an undefined value.
 
 \SECTION{Match+Action Table Overview}{matchoverview}
 
@@ -3323,7 +3328,12 @@ Control flow begins with the control function \texttt{ingress}.
 \begin{itemize}
 \item LPM match (Section \ref{sec:tabledecs})
 \begin{itemize}
-\item Add a constraint to allow only one \texttt{lpm} match type per table.  
+\item Add a constraint to allow only one \texttt{lpm} match type per table.
+\end{itemize}
+\item Initial value of stateful memories (Section \ref{sec:stateful})
+\begin{itemize}
+\item Change semantics so that counters are initialized to 0; meters are initialized to green color; and registers are initialized with an undefiend value.
+\end{itemize}
 \end{itemize}
 
 \SUBSUBSECTION{Summary of changes introduced in 1.0.4}{change-summary-1.0.4}
