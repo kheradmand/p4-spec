@@ -893,6 +893,9 @@ field if changes are made to any fields on which it depends. The update to
 the field occurs when the packet is deparsed for egress. If no update clause
 applies, the field retains its value from the \matchaction pipeline.
 
+If multiple calculated fields exist, the order in which the fields are updated or
+verified is target specific.
+
 \SECTION{Parser Specification}{parser}
 
 P4 models the parser as a state machine. This can be represented as a parse
@@ -3411,6 +3414,11 @@ Control flow begins with the control function \texttt{ingress}.
 \begin{itemize}
 \item Disallow \texttt{execute_meter} to reference direct meters.
 \item Disallow \texttt{add_header}, \texttt{copy_header}, and \texttt{remove_header} to reference metadata instances.
+\end{itemize}
+\item Calculated fields (Section \ref{sec:checksums})
+\begin{itemize}
+\item If multiple calculated fields exist, the order in which the fields are updated or
+verified is target specific.
 \end{itemize}
 \end{itemize}
 
